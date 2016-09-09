@@ -42,6 +42,18 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-testing -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-testing</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -53,6 +53,7 @@ public class BaseicTest extends TestCase {
 
     }
 
+
     public void testBasicQueryUsage(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
