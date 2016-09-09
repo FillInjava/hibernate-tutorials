@@ -58,9 +58,10 @@ public class BaseicTest extends TestCase {
         session.beginTransaction();
         String hql = "from Event";
         List<Event> events = session.createQuery(hql).list();
-        for(Event e : events){
-            System.out.println("Event (" + e.getDate() + ") : " + e.getTitle() );
-        }
+        events.forEach(event -> {
+            System.out.println("Event (" + event.getDate() + ") : " +event.getTitle() );
+        });
+
         session.getTransaction().commit();
         session.close();
 

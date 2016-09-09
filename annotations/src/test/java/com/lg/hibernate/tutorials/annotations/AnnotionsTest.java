@@ -52,9 +52,10 @@ public class AnnotionsTest extends TestCase{
         session.beginTransaction();
         List<Event> events =  session.createQuery("from Event").list();
 
-        for (Event event : events){
+        events.forEach(event -> {
             System.out.println("Event (" + event.getDate() + ") : " + event.getTitle() );
-        }
+        });
+
         session.getTransaction().commit();
         session.close();
     }
