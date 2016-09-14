@@ -11,7 +11,7 @@ import java.util.BitSet;
 /**
  * Created by liuguo on 2016/9/9.
  */
-@Entity
+@Entity(name = "bitproduct")
 public class BitProduct {
     @Id
     @GeneratedValue(generator = "increment")

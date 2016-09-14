@@ -1,58 +1,56 @@
 package com.lg.hibernate.guide.test;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.testing.junit4.BaseUnitTestCase;
-import org.junit.After;
-import org.junit.Before;
+import com.lg.hibernate.userguide.basictype.BitProduct;
+import com.lg.hibernate.userguide.basictype.BitSetType;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase;
 import org.junit.Test;
 
 import java.util.BitSet;
 
+import static org.hibernate.testing.transaction.TransactionUtil.doInHibernate;
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by liuguo on 2016/9/9.
  */
-public class BitSetTypeTest extends BaseUnitTestCase{
+public class BitSetTypeTest extends BaseCoreFunctionalTestCase{
 
-    private static SessionFactory sessionFactory;
 
-    /**
-     * 初始化方法
-     * 用户初始化SessionFactory
-     * @throws Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-        try {
-            sessionFactory = new MetadataSources(registry)
-                    .buildMetadata()
-                    .buildSessionFactory();
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-
+    @Override
+    protected Class<?>[] getAnnotatedClasses() {
+        return new Class[]{
+                BitProduct.class
+        };
     }
 
-    /**
-     * 应用关闭时关闭连接
-     * @throws Exception
-     */
-    @After
-    public void tearDown() throws Exception {
-        if(sessionFactory!=null){
-            sessionFactory.close();
-        }
+    @Override
+    protected Configuration constructAndConfigureConfiguration() {
+        Configuration configuration = super.constructAndConfigureConfiguration();
+
+        configuration.registerTypeContributor(((typeContributions, serviceRegistry) -> {
+            typeContributions.contributeType(BitSetType.INSTANCE);
+        }));
+
+        return configuration;
     }
 
     @Test
-    public void testBitSetType() throws Exception {
+    public void test() throws Exception {
+        //tag::basic-custom-type-BitSetType-persistence-example[]
         BitSet bitSet = BitSet.valueOf( new long[] {1, 2, 3} );
 
+        doInHibernate(this::sessionFactory, session->{
+            BitProduct product = new BitProduct();
+            product.setId(1);
+            product.setBitSet(bitSet);
 
+            session.save(product);
+        } );
+
+        doInHibernate(this::sessionFactory,session -> {
+            BitProduct product = session.get(BitProduct.class,1);
+            assertEquals(bitSet,product.getBitSet());
+        });
     }
 }

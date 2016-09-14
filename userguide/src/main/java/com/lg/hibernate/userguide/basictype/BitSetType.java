@@ -8,31 +8,33 @@ import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 import java.util.BitSet;
 
 /**
- * Created by liuguo on 2016/9/9.
+ * @author Vlad Mihalcea
  */
-public class BitSetType extends AbstractSingleColumnStandardBasicType<BitSet> implements DiscriminatorType<BitSet>{
+//tag::basic-custom-type-BitSetType-example[]
+public class BitSetType
+        extends AbstractSingleColumnStandardBasicType<BitSet>
+        implements DiscriminatorType<BitSet> {
 
     public static final BitSetType INSTANCE = new BitSetType();
 
-
-
     public BitSetType() {
-        super(VarcharTypeDescriptor.INSTANCE, BitSetTypeDescriptor.INSTANCE);
+        super( VarcharTypeDescriptor.INSTANCE, BitSetTypeDescriptor.INSTANCE );
     }
-
 
     @Override
     public BitSet stringToObject(String xml) throws Exception {
-       return fromString(xml);
+        return fromString( xml );
     }
 
     @Override
     public String objectToSQLString(BitSet value, Dialect dialect) throws Exception {
-       return toString( value );
+        return toString( value );
     }
 
     @Override
     public String getName() {
         return "bitset";
     }
+
 }
+//end::basic-custom-type-BitSetType-example[]

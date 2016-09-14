@@ -30,6 +30,7 @@ public class UserGuideTest extends TestCase{
                 .configure()
                 .build();
         try {
+
             sessionFactory = new MetadataSources(registry)
                     .buildMetadata()
                     .buildSessionFactory();

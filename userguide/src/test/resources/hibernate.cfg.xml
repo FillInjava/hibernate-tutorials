@@ -36,7 +36,7 @@
         <!-- Names the annotated entity class -->
         <mapping class="com.lg.hibernate.userguide.entity.Contact"></mapping>
         <mapping class="com.lg.hibernate.userguide.entity.Product"></mapping>
-        <mapping class="com.lg.hibernate.userguide.basictype.BitProduct"></mapping>
+        <!--<mapping class="com.lg.hibernate.userguide.basictype.BitProduct"></mapping>-->
     </session-factory>
 
 </hibernate-configuration>
