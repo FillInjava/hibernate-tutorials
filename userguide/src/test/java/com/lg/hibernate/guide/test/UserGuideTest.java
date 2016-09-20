@@ -31,7 +31,10 @@ public class UserGuideTest extends TestCase{
                 .build();
         try {
 
+            MetadataSources metadataSources = new MetadataSources(registry);
             sessionFactory = new MetadataSources(registry)
+                    .addAnnotatedClass(Contact.class)
+                    .addAnnotatedClassName("com.lg.hibernate.userguide.entity.Product")
                     .buildMetadata()
                     .buildSessionFactory();
         } catch (Exception e) {
