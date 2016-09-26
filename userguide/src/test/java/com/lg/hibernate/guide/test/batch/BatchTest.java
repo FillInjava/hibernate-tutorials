@@ -100,6 +100,17 @@ public class BatchTest extends BaseEntityManagerFunctionalTestCase {
             assertEquals(1, updatedEntities);
         } );
 
+        doInJPA(this::entityManagerFactory,entityManager -> {
+            String name = "Alexandru";
+
+            int deletedEntities = entityManager
+                    .createQuery("delete Person p where p.name = :name")
+                    .setParameter("name",name)
+                    .executeUpdate();
+
+            assertEquals(1,deletedEntities);
+        });
+
 
     }
 
